@@ -1,0 +1,27 @@
+# Secrets / env
+.env
+backend/.env
+frontend/.env
+frontend/.env.local
+
+# Python
+backend/.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+*.db
+*.sqlite3
+backend/dev.db
+backend/_migration_check.db
+
+# Node / frontend build
+frontend/node_modules/
+frontend/dist/
+
+# Editor / OS
+.DS_Store
+.idea/
+.vscode/
+
+# Local UI verification output
+/tmp/ui/
