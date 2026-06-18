@@ -253,46 +253,63 @@ function OrderForm({ onClose, onSaved }) {
                 + Add line
               </button>
             </div>
-            <div className="space-y-2.5">
+            {/* column headers make it explicit which box is which */}
+            <div className="mb-1.5 flex items-center gap-2 px-0.5">
+              <span className="min-w-0 flex-1 text-[10px] font-semibold uppercase tracking-wider text-ink-muted">
+                Product
+              </span>
+              <span className="w-20 flex-shrink-0 text-center text-[10px] font-semibold uppercase tracking-wider text-ink-muted">
+                Qty to order
+              </span>
+              <span className="w-4 flex-shrink-0" />
+            </div>
+            <div className="space-y-3">
               {lines.map((line, i) => {
                 const p = productMap[line.product_id];
+                const qty = Number(line.quantity || 0);
+                const over = p && qty > p.quantity_in_stock;
                 return (
-                  <div key={i} className="flex items-start gap-2">
-                    <div className="min-w-0 flex-1">
-                      <Select value={line.product_id} onChange={(e) => updateLine(i, { product_id: e.target.value })}>
-                        <option value="">Select product…</option>
-                        {products.map((pr) => (
-                          <option key={pr.id} value={pr.id} disabled={pr.quantity_in_stock <= 0}>
-                            {pr.name} — {currency(pr.price)} ({pr.quantity_in_stock} in stock)
-                          </option>
-                        ))}
-                      </Select>
-                      {p && (
-                        <p className="mt-1 font-mono text-[11px] text-ink-muted">
-                          {p.quantity_in_stock} available · line {currency(Number(p.price) * Number(line.quantity || 0))}
-                        </p>
-                      )}
+                  <div key={i}>
+                    <div className="flex items-center gap-2">
+                      <div className="min-w-0 flex-1">
+                        <Select value={line.product_id} onChange={(e) => updateLine(i, { product_id: e.target.value })}>
+                          <option value="">Select product…</option>
+                          {products.map((pr) => (
+                            <option key={pr.id} value={pr.id} disabled={pr.quantity_in_stock <= 0}>
+                              {pr.name} — {currency(pr.price)}
+                            </option>
+                          ))}
+                        </Select>
+                      </div>
+                      <div className="w-20 flex-shrink-0">
+                        <Input
+                          type="number"
+                          min="1"
+                          step="1"
+                          value={line.quantity}
+                          onChange={(e) => updateLine(i, { quantity: e.target.value })}
+                          invalid={over}
+                          className="text-center"
+                          aria-label="Quantity to order"
+                        />
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => removeLine(i)}
+                        disabled={lines.length === 1}
+                        className="flex-shrink-0 px-1 text-ink-muted hover:text-signal disabled:opacity-30"
+                        aria-label="Remove line"
+                      >
+                        ✕
+                      </button>
                     </div>
-                    <div className="w-20 flex-shrink-0">
-                      <Input
-                        type="number"
-                        min="1"
-                        step="1"
-                        value={line.quantity}
-                        onChange={(e) => updateLine(i, { quantity: e.target.value })}
-                        className="text-center"
-                        aria-label="Quantity"
-                      />
-                    </div>
-                    <button
-                      type="button"
-                      onClick={() => removeLine(i)}
-                      disabled={lines.length === 1}
-                      className="mt-1.5 px-1 text-ink-muted hover:text-rose-600 disabled:opacity-30"
-                      aria-label="Remove line"
-                    >
-                      ✕
-                    </button>
+                    {p && (
+                      <p className={`mt-1 text-[11px] ${over ? "font-semibold text-signal-deep" : "text-ink-muted"}`}>
+                        {over
+                          ? `Only ${p.quantity_in_stock} in stock — reduce the quantity`
+                          : `Ordering ${qty} of ${p.quantity_in_stock} in stock · subtotal ${currency(Number(p.price) * qty)}`}
+                      </p>
+                    )}
                   </div>
                 );
               })}
