@@ -5,7 +5,6 @@ services:
   - type: web
     name: inventory-api
     runtime: docker
-    repo: https://github.com/CHANGE_ME/inventory-order-management
     dockerfilePath: ./backend/Dockerfile
     dockerContext: ./backend
     plan: free
