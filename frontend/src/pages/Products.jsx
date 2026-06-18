@@ -205,7 +205,7 @@ function ProductForm({ initial, onClose, onSaved }) {
           <Input value={form.sku} onChange={set("sku")} invalid={!!errors.sku} placeholder="e.g. TRP-A100" className="font-mono" />
         </Field>
         <div className="grid grid-cols-2 gap-4">
-          <Field label="Price (USD)" error={errors.price}>
+          <Field label="Price (₹)" error={errors.price}>
             <Input type="number" step="0.01" min="0" value={form.price} onChange={set("price")} invalid={!!errors.price} placeholder="0.00" />
           </Field>
           <Field label="Quantity in stock" error={errors.quantity_in_stock}>
