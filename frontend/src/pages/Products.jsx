@@ -60,21 +60,21 @@ export default function Products() {
           }
         />
       ) : (
-        <div className="overflow-hidden border-2 border-carbon bg-white">
+        <div className="card overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b-2 border-carbon bg-carbon text-left font-mono text-[11px] uppercase tracking-wider text-concrete/70">
-                  <th className="px-5 py-3 font-semibold">Product</th>
-                  <th className="px-5 py-3 font-semibold">SKU</th>
-                  <th className="px-5 py-3 font-semibold">Price</th>
-                  <th className="px-5 py-3 font-semibold">Stock</th>
-                  <th className="px-5 py-3 text-right font-semibold">Actions</th>
+                <tr className="border-b border-black/5 bg-black/[0.015] text-left text-[11px] font-semibold uppercase tracking-wider text-ink-muted">
+                  <th className="px-5 py-3.5 font-semibold">Product</th>
+                  <th className="px-5 py-3.5 font-semibold">SKU</th>
+                  <th className="px-5 py-3.5 font-semibold">Price</th>
+                  <th className="px-5 py-3.5 font-semibold">Stock</th>
+                  <th className="px-5 py-3.5 text-right font-semibold">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-paperline">
+              <tbody className="divide-y divide-black/5">
                 {products.map((p) => (
-                  <tr key={p.id} className="transition hover:bg-concrete/40">
+                  <tr key={p.id} className="transition hover:bg-black/[0.015]">
                     <td className="px-5 py-3.5 font-semibold text-carbon">{p.name}</td>
                     <td className="px-5 py-3.5">
                       <SkuChip>{p.sku}</SkuChip>

@@ -66,11 +66,12 @@ for container, data-model (ER), order-flow sequence, and deployment diagrams.
 |---|---|
 | ![Create order](docs/screenshots/order-create.png) | ![Order detail](docs/screenshots/order-detail.png) |
 
-The UI follows a deliberate **"Freight Terminal"** design language — industrial
-signage typography (Archivo), a **hazard-stripe** signature motif, flat
-hard-edged panels, freight-label SKU chips, and a mechanical **ticked stock
-gauge** that color-codes inventory health (green = in stock, amber = low,
-red = out). Type pairing: Archivo (display) + Inter (body) + IBM Plex Mono
+The UI uses a refined **black / white / yellow** design language — a floating
+dark sidebar with a hi-vis active state, soft rounded cards, and dashboard
+**data visualization** (a custom SVG donut for inventory status and a top-products
+bar chart), all built dependency-free. Stock levels are color-coded
+(black = in stock, yellow = low, red = out) and all amounts are shown in
+**INR (₹)**. Type pairing: Archivo (display) + Inter (body) + IBM Plex Mono
 (data). Fully responsive desktop → mobile.
 
 ---

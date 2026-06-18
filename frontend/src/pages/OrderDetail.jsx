@@ -42,18 +42,18 @@ export default function OrderDetail() {
 
       <div className="grid gap-6 lg:grid-cols-3">
         <section className="lg:col-span-2">
-          <div className="overflow-hidden border-2 border-carbon bg-white">
+          <div className="card overflow-hidden">
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
-                  <tr className="border-b-2 border-carbon bg-carbon text-left font-mono text-[11px] uppercase tracking-wider text-concrete/70">
-                    <th className="px-5 py-3 font-semibold">Product</th>
-                    <th className="px-5 py-3 font-semibold">Unit price</th>
-                    <th className="px-5 py-3 text-center font-semibold">Qty</th>
-                    <th className="px-5 py-3 text-right font-semibold">Line total</th>
+                  <tr className="border-b border-black/5 bg-black/[0.015] text-left text-[11px] font-semibold uppercase tracking-wider text-ink-muted">
+                    <th className="px-5 py-3.5 font-semibold">Product</th>
+                    <th className="px-5 py-3.5 font-semibold">Unit price</th>
+                    <th className="px-5 py-3.5 text-center font-semibold">Qty</th>
+                    <th className="px-5 py-3.5 text-right font-semibold">Line total</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-paperline">
+                <tbody className="divide-y divide-black/5">
                   {order.items.map((item) => {
                     const p = productById[item.product_id];
                     return (
@@ -76,8 +76,8 @@ export default function OrderDetail() {
                   })}
                 </tbody>
                 <tfoot>
-                  <tr className="border-t-2 border-carbon bg-concrete">
-                    <td colSpan={3} className="px-5 py-3.5 text-right font-mono text-xs font-bold uppercase tracking-[0.18em] text-ink-muted">
+                  <tr className="border-t border-black/5 bg-black/[0.02]">
+                    <td colSpan={3} className="px-5 py-3.5 text-right text-xs font-bold uppercase tracking-wide text-ink-muted">
                       Order total
                     </td>
                     <td className="nums px-5 py-3.5 text-right font-display text-xl font-extrabold text-carbon">
@@ -91,7 +91,7 @@ export default function OrderDetail() {
         </section>
 
         <aside>
-          <div className="border-2 border-carbon bg-white p-5">
+          <div className="card p-6">
             <p className="eyebrow">Customer</p>
             {customer ? (
               <>

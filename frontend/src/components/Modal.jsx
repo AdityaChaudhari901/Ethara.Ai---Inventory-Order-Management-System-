@@ -17,7 +17,7 @@ export function Modal({ open, onClose, title, subtitle, children, footer }) {
   return (
     <div className="fixed inset-0 z-40 flex items-end justify-center sm:items-center">
       <div
-        className="absolute inset-0 animate-fade-in bg-carbon/55 backdrop-blur-sm"
+        className="absolute inset-0 animate-fade-in bg-carbon/50 backdrop-blur-sm"
         onClick={onClose}
         aria-hidden
       />
@@ -25,29 +25,24 @@ export function Modal({ open, onClose, title, subtitle, children, footer }) {
         role="dialog"
         aria-modal="true"
         aria-label={title}
-        className="relative z-10 w-full max-w-lg animate-stamp-in border-2 border-carbon bg-white shadow-hard sm:rounded-md"
+        className="relative z-10 w-full max-w-lg animate-pop-in rounded-t-3xl bg-white shadow-soft sm:rounded-3xl"
       >
-        <div className="hazard-stripe h-1.5" />
-        <div className="flex items-start justify-between border-b-2 border-carbon px-6 py-4">
+        <div className="flex items-start justify-between px-6 pb-4 pt-6">
           <div>
             <h2 className="signage text-xl leading-tight">{title}</h2>
-            {subtitle && (
-              <p className="mt-0.5 font-mono text-xs uppercase tracking-wide text-ink-muted">
-                {subtitle}
-              </p>
-            )}
+            {subtitle && <p className="mt-1 text-sm text-ink-muted">{subtitle}</p>}
           </div>
           <button
             onClick={onClose}
-            className="rounded-md border-2 border-transparent p-1 text-ink-muted hover:border-carbon hover:text-carbon"
+            className="rounded-lg p-1.5 text-ink-muted hover:bg-black/[0.04] hover:text-carbon"
             aria-label="Close"
           >
             ✕
           </button>
         </div>
-        <div className="max-h-[70vh] overflow-y-auto px-6 py-5">{children}</div>
+        <div className="max-h-[70vh] overflow-y-auto px-6 pb-2">{children}</div>
         {footer && (
-          <div className="flex justify-end gap-3 border-t-2 border-carbon px-6 py-4">{footer}</div>
+          <div className="mt-2 flex justify-end gap-3 border-t border-black/5 px-6 py-4">{footer}</div>
         )}
       </div>
     </div>

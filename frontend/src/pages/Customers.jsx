@@ -58,14 +58,14 @@ export default function Customers() {
       ) : (
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {customers.map((c) => (
-            <div key={c.id} className="flex flex-col border-2 border-carbon bg-white p-5 transition hover:-translate-y-0.5 hover:shadow-hard-sm">
+            <div key={c.id} className="card flex flex-col p-5 transition hover:-translate-y-0.5 hover:shadow-lift">
               <div className="flex items-start justify-between gap-3">
-                <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-sm border-2 border-carbon bg-hazard font-display text-sm font-extrabold text-carbon">
+                <span className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-2xl bg-hazard font-display text-sm font-extrabold text-carbon shadow-glow">
                   {initials(c.full_name)}
                 </span>
                 <span className="font-mono text-[11px] font-semibold text-ink-muted">#{String(c.id).padStart(3, "0")}</span>
               </div>
-              <p className="mt-3 font-display font-bold uppercase tracking-tight text-carbon">{c.full_name}</p>
+              <p className="mt-3 font-display font-bold tracking-tight text-carbon">{c.full_name}</p>
               <p className="mt-0.5 truncate text-sm text-ink-muted">{c.email}</p>
               <p className="font-mono text-sm text-ink-soft">{c.phone || "—"}</p>
               <div className="mt-4 flex justify-end">

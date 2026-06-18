@@ -31,22 +31,23 @@ export function ToastProvider({ children }) {
           <div
             key={t.id}
             role="status"
-            className="pointer-events-auto flex animate-slide-up items-stretch gap-0 border-2 border-carbon bg-white shadow-hard-sm"
+            className="pointer-events-auto flex animate-slide-up items-center gap-3 rounded-2xl border border-black/5 bg-white p-3.5 shadow-soft"
           >
-            <span className={`w-1.5 ${t.tone === "error" ? "bg-signal" : "bg-go"}`} />
-            <div className="flex flex-1 items-start gap-3 px-3.5 py-3">
-              <span className="font-mono text-[10px] font-bold uppercase tracking-wide text-ink-muted">
-                {t.tone === "error" ? "ERR" : "OK"}
-              </span>
-              <p className="flex-1 text-sm text-carbon">{t.message}</p>
-              <button
-                onClick={() => dismiss(t.id)}
-                className="text-ink-muted hover:text-carbon"
-                aria-label="Dismiss"
-              >
-                ✕
-              </button>
-            </div>
+            <span
+              className={`flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full text-xs font-bold ${
+                t.tone === "error" ? "bg-signal/15 text-signal-deep" : "bg-go/15 text-go-deep"
+              }`}
+            >
+              {t.tone === "error" ? "!" : "✓"}
+            </span>
+            <p className="flex-1 text-sm text-carbon">{t.message}</p>
+            <button
+              onClick={() => dismiss(t.id)}
+              className="text-ink-muted hover:text-carbon"
+              aria-label="Dismiss"
+            >
+              ✕
+            </button>
           </div>
         ))}
       </div>

@@ -63,22 +63,22 @@ export default function Orders() {
           }
         />
       ) : (
-        <div className="overflow-hidden border-2 border-carbon bg-white">
+        <div className="card overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b-2 border-carbon bg-carbon text-left font-mono text-[11px] uppercase tracking-wider text-concrete/70">
-                  <th className="px-5 py-3 font-semibold">Order</th>
-                  <th className="px-5 py-3 font-semibold">Items</th>
-                  <th className="px-5 py-3 font-semibold">Total</th>
-                  <th className="px-5 py-3 font-semibold">Status</th>
-                  <th className="px-5 py-3 font-semibold">Placed</th>
-                  <th className="px-5 py-3 text-right font-semibold">Actions</th>
+                <tr className="border-b border-black/5 bg-black/[0.015] text-left text-[11px] font-semibold uppercase tracking-wider text-ink-muted">
+                  <th className="px-5 py-3.5 font-semibold">Order</th>
+                  <th className="px-5 py-3.5 font-semibold">Items</th>
+                  <th className="px-5 py-3.5 font-semibold">Total</th>
+                  <th className="px-5 py-3.5 font-semibold">Status</th>
+                  <th className="px-5 py-3.5 font-semibold">Placed</th>
+                  <th className="px-5 py-3.5 text-right font-semibold">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-paperline">
+              <tbody className="divide-y divide-black/5">
                 {orders.map((o) => (
-                  <tr key={o.id} className="transition hover:bg-concrete/40">
+                  <tr key={o.id} className="transition hover:bg-black/[0.015]">
                     <td className="px-5 py-3.5">
                       <Link to={`/orders/${o.id}`} className="font-mono font-bold text-carbon underline-offset-4 hover:underline hover:decoration-hazard hover:decoration-2">
                         #{String(o.id).padStart(4, "0")}
@@ -299,13 +299,13 @@ function OrderForm({ onClose, onSaved }) {
             </div>
           </div>
 
-          <div className="flex items-center justify-between border-2 border-carbon bg-carbon px-4 py-3 text-white">
-            <span className="font-mono text-xs uppercase tracking-[0.18em] text-hazard">Order total</span>
+          <div className="flex items-center justify-between rounded-2xl bg-carbon px-5 py-4 text-white">
+            <span className="text-xs font-semibold uppercase tracking-wide text-hazard">Order total</span>
             <span className="nums font-display text-2xl font-extrabold">{currency(total)}</span>
           </div>
 
           {formError && (
-            <p className="rounded-md border-2 border-signal bg-signal/5 px-3 py-2 text-sm font-semibold text-signal-deep">
+            <p className="rounded-xl border border-signal/30 bg-signal/5 px-3.5 py-2.5 text-sm font-semibold text-signal-deep">
               {formError}
             </p>
           )}

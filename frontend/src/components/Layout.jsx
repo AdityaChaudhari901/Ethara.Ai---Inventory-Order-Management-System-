@@ -2,10 +2,10 @@ import { useState } from "react";
 import { NavLink, Outlet } from "react-router-dom";
 
 const nav = [
-  { to: "/", label: "Dashboard", end: true, icon: IconGrid, code: "00" },
-  { to: "/products", label: "Products", icon: IconBox, code: "01" },
-  { to: "/customers", label: "Customers", icon: IconUsers, code: "02" },
-  { to: "/orders", label: "Orders", icon: IconReceipt, code: "03" },
+  { to: "/", label: "Dashboard", end: true, icon: IconGrid },
+  { to: "/products", label: "Products", icon: IconBox },
+  { to: "/customers", label: "Customers", icon: IconUsers },
+  { to: "/orders", label: "Orders", icon: IconReceipt },
 ];
 
 export function Layout() {
@@ -13,12 +13,9 @@ export function Layout() {
 
   return (
     <div className="min-h-screen lg:flex">
-      {/* hazard tape across the very top */}
-      <div className="hazard-stripe fixed inset-x-0 top-0 z-50 h-1.5" />
-
       {open && (
         <div
-          className="fixed inset-0 z-30 bg-carbon/50 lg:hidden"
+          className="fixed inset-0 z-30 bg-carbon/40 lg:hidden"
           onClick={() => setOpen(false)}
           aria-hidden
         />
@@ -26,12 +23,12 @@ export function Layout() {
 
       {/* Sidebar */}
       <aside
-        className={`fixed inset-y-0 left-0 z-40 mt-1.5 flex w-64 flex-col border-r-2 border-carbon bg-carbon text-concrete transition-transform lg:static lg:mt-0 lg:translate-x-0 ${
+        className={`fixed inset-y-0 left-0 z-40 flex w-64 flex-col bg-carbon text-white transition-transform lg:static lg:m-3 lg:h-[calc(100vh-1.5rem)] lg:rounded-3xl lg:translate-x-0 ${
           open ? "translate-x-0" : "-translate-x-full"
         }`}
       >
         <Brand />
-        <nav className="flex-1 space-y-1 px-3 py-4">
+        <nav className="flex-1 space-y-1.5 px-3 py-5">
           {nav.map((item) => (
             <NavLink
               key={item.to}
@@ -39,50 +36,39 @@ export function Layout() {
               end={item.end}
               onClick={() => setOpen(false)}
               className={({ isActive }) =>
-                `group relative flex items-center gap-3 rounded-md px-3 py-2.5 text-sm font-display font-semibold uppercase tracking-wide transition ${
+                `flex items-center gap-3 rounded-xl px-3.5 py-2.5 text-sm font-semibold transition ${
                   isActive
-                    ? "bg-carbon-soft text-white"
-                    : "text-concrete/55 hover:bg-carbon-soft/60 hover:text-white"
+                    ? "bg-hazard text-carbon shadow-glow"
+                    : "text-white/55 hover:bg-white/[0.06] hover:text-white"
                 }`
               }
             >
-              {({ isActive }) => (
-                <>
-                  <span
-                    className={`absolute left-0 top-1/2 h-6 w-1 -translate-y-1/2 rounded-r bg-hazard transition-opacity ${
-                      isActive ? "opacity-100" : "opacity-0 group-hover:opacity-40"
-                    }`}
-                  />
-                  <item.icon />
-                  <span className="flex-1">{item.label}</span>
-                  <span className="font-mono text-[10px] text-concrete/35">{item.code}</span>
-                </>
-              )}
+              <item.icon />
+              {item.label}
             </NavLink>
           ))}
         </nav>
-        <div className="border-t border-carbon-line px-5 py-4">
-          <p className="font-mono text-[10px] leading-relaxed uppercase tracking-wide text-concrete/40">
-            Inventory &amp; Order
-            <br />
-            Management Terminal
-          </p>
+        <div className="px-5 py-5">
+          <div className="rounded-2xl bg-white/[0.05] p-4">
+            <p className="text-xs font-semibold text-white">Inventory & Orders</p>
+            <p className="mt-0.5 text-[11px] text-white/45">Management System</p>
+          </div>
         </div>
       </aside>
 
       {/* Main column */}
       <div className="flex min-w-0 flex-1 flex-col">
-        <header className="hazard-edge sticky top-1.5 z-20 flex items-center gap-3 border-b-2 border-carbon bg-concrete/90 px-4 py-3 backdrop-blur lg:hidden">
+        <header className="sticky top-0 z-20 flex items-center gap-3 border-b border-black/5 bg-concrete/85 px-4 py-3 backdrop-blur lg:hidden">
           <button
             onClick={() => setOpen(true)}
-            className="rounded-md border-2 border-carbon p-2 text-carbon"
+            className="rounded-xl border border-black/10 bg-white p-2 text-carbon"
             aria-label="Open navigation"
           >
             <IconMenu />
           </button>
           <span className="signage text-lg">Stockroom</span>
         </header>
-        <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-6 sm:px-6 lg:px-10 lg:py-10">
+        <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-6 sm:px-6 lg:px-8 lg:py-9">
           <Outlet />
         </main>
       </div>
@@ -92,16 +78,14 @@ export function Layout() {
 
 function Brand() {
   return (
-    <div className="flex items-center gap-3 border-b-2 border-carbon-line px-5 py-5">
-      <span className="hazard-stripe flex h-10 w-10 items-center justify-center rounded-md border-2 border-white/20">
-        <span className="flex h-6 w-6 items-center justify-center rounded-sm bg-carbon font-display text-sm font-extrabold text-hazard">
-          S
-        </span>
+    <div className="flex items-center gap-3 px-5 pb-2 pt-6">
+      <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-hazard font-display text-lg font-extrabold text-carbon shadow-glow">
+        S
       </span>
       <div className="leading-tight">
         <p className="signage text-base text-white">Stockroom</p>
-        <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-hazard">
-          Freight Terminal
+        <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-hazard">
+          Ops Console
         </p>
       </div>
     </div>
@@ -125,10 +109,10 @@ function base(props) {
 function IconGrid() {
   return (
     <svg {...base()}>
-      <rect x="3" y="3" width="7" height="7" rx="1" />
-      <rect x="14" y="3" width="7" height="7" rx="1" />
-      <rect x="3" y="14" width="7" height="7" rx="1" />
-      <rect x="14" y="14" width="7" height="7" rx="1" />
+      <rect x="3" y="3" width="7" height="7" rx="1.5" />
+      <rect x="14" y="3" width="7" height="7" rx="1.5" />
+      <rect x="3" y="14" width="7" height="7" rx="1.5" />
+      <rect x="14" y="14" width="7" height="7" rx="1.5" />
     </svg>
   );
 }

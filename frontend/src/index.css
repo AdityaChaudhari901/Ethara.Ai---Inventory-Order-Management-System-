@@ -8,15 +8,10 @@
   }
   body {
     @apply bg-concrete text-carbon font-sans;
-    /* faint engineering grid on the concrete background */
-    background-image:
-      linear-gradient(rgba(23, 24, 27, 0.035) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(23, 24, 27, 0.035) 1px, transparent 1px);
-    background-size: 28px 28px;
   }
   ::selection {
     background: #ffc400;
-    color: #17181b;
+    color: #141416;
   }
   .nums {
     font-variant-numeric: tabular-nums;
@@ -24,30 +19,19 @@
 }
 
 @layer components {
-  /* Hazard stripe — the signature motif (warehouse safety tape). */
-  .hazard-stripe {
-    background-image: repeating-linear-gradient(
-      -45deg,
-      #ffc400 0,
-      #ffc400 9px,
-      #17181b 9px,
-      #17181b 18px
-    );
+  /* Soft, fancy card surface. */
+  .card {
+    @apply rounded-2xl border border-black/[0.06] bg-white shadow-soft;
   }
 
-  /* Industrial flat panel: hard border, no pillowy shadow. */
-  .panel {
-    @apply border-2 border-carbon bg-white rounded-md;
-  }
-
-  /* Mono eyebrow label used above section/page titles. */
+  /* Mono eyebrow label above section/page titles. */
   .eyebrow {
-    @apply font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-hazard-deep;
+    @apply font-mono text-[11px] font-semibold uppercase tracking-[0.16em] text-ink-muted;
   }
 
-  /* Heavy condensed-feel signage title. */
+  /* Bold, characterful title (Archivo) — not shouty. */
   .signage {
-    @apply font-display font-extrabold uppercase tracking-tight text-carbon;
+    @apply font-display font-bold tracking-tight text-carbon;
   }
 }
 
