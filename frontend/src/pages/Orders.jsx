@@ -63,24 +63,24 @@ export default function Orders() {
           }
         />
       ) : (
-        <div className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-card">
+        <div className="overflow-hidden border-2 border-carbon bg-white">
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b border-slate-100 text-left font-mono text-[11px] uppercase tracking-wider text-ink-muted">
-                  <th className="px-5 py-3 font-medium">Order</th>
-                  <th className="px-5 py-3 font-medium">Items</th>
-                  <th className="px-5 py-3 font-medium">Total</th>
-                  <th className="px-5 py-3 font-medium">Status</th>
-                  <th className="px-5 py-3 font-medium">Placed</th>
-                  <th className="px-5 py-3 text-right font-medium">Actions</th>
+                <tr className="border-b-2 border-carbon bg-carbon text-left font-mono text-[11px] uppercase tracking-wider text-concrete/70">
+                  <th className="px-5 py-3 font-semibold">Order</th>
+                  <th className="px-5 py-3 font-semibold">Items</th>
+                  <th className="px-5 py-3 font-semibold">Total</th>
+                  <th className="px-5 py-3 font-semibold">Status</th>
+                  <th className="px-5 py-3 font-semibold">Placed</th>
+                  <th className="px-5 py-3 text-right font-semibold">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100">
+              <tbody className="divide-y divide-paperline">
                 {orders.map((o) => (
-                  <tr key={o.id} className="transition hover:bg-slate-50/70">
+                  <tr key={o.id} className="transition hover:bg-concrete/40">
                     <td className="px-5 py-3.5">
-                      <Link to={`/orders/${o.id}`} className="font-mono font-semibold text-ink hover:text-brand-deep">
+                      <Link to={`/orders/${o.id}`} className="font-mono font-bold text-carbon underline-offset-4 hover:underline hover:decoration-hazard hover:decoration-2">
                         #{String(o.id).padStart(4, "0")}
                       </Link>
                     </td>
@@ -88,9 +88,9 @@ export default function Orders() {
                       {o.items.reduce((n, i) => n + i.quantity, 0)} units / {o.items.length} line
                       {o.items.length === 1 ? "" : "s"}
                     </td>
-                    <td className="nums px-5 py-3.5 font-mono font-semibold text-ink">{currency(o.total_amount)}</td>
+                    <td className="nums px-5 py-3.5 font-mono font-bold text-carbon">{currency(o.total_amount)}</td>
                     <td className="px-5 py-3.5">
-                      <Badge tone="emerald">{o.status}</Badge>
+                      <Badge tone="go">{o.status}</Badge>
                     </td>
                     <td className="px-5 py-3.5 text-ink-muted">{dateTime(o.created_at)}</td>
                     <td className="px-5 py-3.5">
@@ -299,13 +299,15 @@ function OrderForm({ onClose, onSaved }) {
             </div>
           </div>
 
-          <div className="flex items-center justify-between rounded-lg bg-ink px-4 py-3 text-white">
-            <span className="font-mono text-xs uppercase tracking-widest text-slate-300">Order total</span>
-            <span className="nums font-display text-xl font-bold">{currency(total)}</span>
+          <div className="flex items-center justify-between border-2 border-carbon bg-carbon px-4 py-3 text-white">
+            <span className="font-mono text-xs uppercase tracking-[0.18em] text-hazard">Order total</span>
+            <span className="nums font-display text-2xl font-extrabold">{currency(total)}</span>
           </div>
 
           {formError && (
-            <p className="rounded-lg bg-rose-50 px-3 py-2 text-sm font-medium text-rose-700">{formError}</p>
+            <p className="rounded-md border-2 border-signal bg-signal/5 px-3 py-2 text-sm font-semibold text-signal-deep">
+              {formError}
+            </p>
           )}
         </form>
       )}

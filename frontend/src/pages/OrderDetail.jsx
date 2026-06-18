@@ -37,23 +37,23 @@ export default function OrderDetail() {
       <PageHeader
         eyebrow={`Placed ${dateTime(order.created_at)}`}
         title={`Order #${String(order.id).padStart(4, "0")}`}
-        action={<Badge tone="emerald">{order.status}</Badge>}
+        action={<Badge tone="go">{order.status}</Badge>}
       />
 
       <div className="grid gap-6 lg:grid-cols-3">
         <section className="lg:col-span-2">
-          <div className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-card">
+          <div className="overflow-hidden border-2 border-carbon bg-white">
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
-                  <tr className="border-b border-slate-100 text-left font-mono text-[11px] uppercase tracking-wider text-ink-muted">
-                    <th className="px-5 py-3 font-medium">Product</th>
-                    <th className="px-5 py-3 font-medium">Unit price</th>
-                    <th className="px-5 py-3 text-center font-medium">Qty</th>
-                    <th className="px-5 py-3 text-right font-medium">Line total</th>
+                  <tr className="border-b-2 border-carbon bg-carbon text-left font-mono text-[11px] uppercase tracking-wider text-concrete/70">
+                    <th className="px-5 py-3 font-semibold">Product</th>
+                    <th className="px-5 py-3 font-semibold">Unit price</th>
+                    <th className="px-5 py-3 text-center font-semibold">Qty</th>
+                    <th className="px-5 py-3 text-right font-semibold">Line total</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-100">
+                <tbody className="divide-y divide-paperline">
                   {order.items.map((item) => {
                     const p = productById[item.product_id];
                     return (
@@ -76,11 +76,11 @@ export default function OrderDetail() {
                   })}
                 </tbody>
                 <tfoot>
-                  <tr className="border-t border-slate-200 bg-slate-50">
-                    <td colSpan={3} className="px-5 py-3.5 text-right font-semibold text-ink">
+                  <tr className="border-t-2 border-carbon bg-concrete">
+                    <td colSpan={3} className="px-5 py-3.5 text-right font-mono text-xs font-bold uppercase tracking-[0.18em] text-ink-muted">
                       Order total
                     </td>
-                    <td className="nums px-5 py-3.5 text-right font-display text-lg font-bold text-ink">
+                    <td className="nums px-5 py-3.5 text-right font-display text-xl font-extrabold text-carbon">
                       {currency(order.total_amount)}
                     </td>
                   </tr>
@@ -91,11 +91,11 @@ export default function OrderDetail() {
         </section>
 
         <aside>
-          <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-card">
-            <p className="font-mono text-[11px] uppercase tracking-widest text-ink-muted">Customer</p>
+          <div className="border-2 border-carbon bg-white p-5">
+            <p className="eyebrow">Customer</p>
             {customer ? (
               <>
-                <p className="mt-2 font-semibold text-ink">{customer.full_name}</p>
+                <p className="mt-2 font-display font-bold uppercase tracking-tight text-carbon">{customer.full_name}</p>
                 <p className="text-sm text-ink-muted">{customer.email}</p>
                 <p className="font-mono text-sm text-ink-soft">{customer.phone || "—"}</p>
               </>

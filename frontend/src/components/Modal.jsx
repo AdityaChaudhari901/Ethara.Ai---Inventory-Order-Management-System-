@@ -17,7 +17,7 @@ export function Modal({ open, onClose, title, subtitle, children, footer }) {
   return (
     <div className="fixed inset-0 z-40 flex items-end justify-center sm:items-center">
       <div
-        className="absolute inset-0 animate-fade-in bg-ink/40 backdrop-blur-sm"
+        className="absolute inset-0 animate-fade-in bg-carbon/55 backdrop-blur-sm"
         onClick={onClose}
         aria-hidden
       />
@@ -25,16 +25,21 @@ export function Modal({ open, onClose, title, subtitle, children, footer }) {
         role="dialog"
         aria-modal="true"
         aria-label={title}
-        className="relative z-10 w-full max-w-lg animate-slide-up rounded-t-2xl bg-white shadow-pop sm:rounded-2xl"
+        className="relative z-10 w-full max-w-lg animate-stamp-in border-2 border-carbon bg-white shadow-hard sm:rounded-md"
       >
-        <div className="flex items-start justify-between border-b border-slate-100 px-6 py-4">
+        <div className="hazard-stripe h-1.5" />
+        <div className="flex items-start justify-between border-b-2 border-carbon px-6 py-4">
           <div>
-            <h2 className="font-display text-lg font-semibold text-ink">{title}</h2>
-            {subtitle && <p className="mt-0.5 text-sm text-ink-muted">{subtitle}</p>}
+            <h2 className="signage text-xl leading-tight">{title}</h2>
+            {subtitle && (
+              <p className="mt-0.5 font-mono text-xs uppercase tracking-wide text-ink-muted">
+                {subtitle}
+              </p>
+            )}
           </div>
           <button
             onClick={onClose}
-            className="rounded-md p-1 text-ink-muted hover:bg-slate-100 hover:text-ink"
+            className="rounded-md border-2 border-transparent p-1 text-ink-muted hover:border-carbon hover:text-carbon"
             aria-label="Close"
           >
             ✕
@@ -42,7 +47,7 @@ export function Modal({ open, onClose, title, subtitle, children, footer }) {
         </div>
         <div className="max-h-[70vh] overflow-y-auto px-6 py-5">{children}</div>
         {footer && (
-          <div className="flex justify-end gap-3 border-t border-slate-100 px-6 py-4">{footer}</div>
+          <div className="flex justify-end gap-3 border-t-2 border-carbon px-6 py-4">{footer}</div>
         )}
       </div>
     </div>

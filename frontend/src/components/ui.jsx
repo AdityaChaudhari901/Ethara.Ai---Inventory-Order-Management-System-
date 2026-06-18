@@ -1,28 +1,31 @@
 import { stockStatus } from "../lib/format";
 
-/* Button — ink (primary), amber (signature CTA), ghost, danger. */
+/* Button — carbon (primary), hazard (signature CTA, stamped), ghost, danger.
+   All share hard 2px carbon borders; the hazard CTA gets a tactile press. */
 export function Button({ variant = "primary", className = "", ...props }) {
   const base =
-    "inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm font-semibold transition focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand disabled:opacity-50 disabled:cursor-not-allowed";
+    "inline-flex items-center justify-center gap-2 rounded-md border-2 px-4 py-2 text-sm font-bold uppercase tracking-wide transition focus:outline-none focus-visible:ring-2 focus-visible:ring-hazard focus-visible:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed";
   const variants = {
-    primary: "bg-ink text-white hover:bg-ink-soft",
-    accent: "bg-brand text-ink hover:bg-amber-400 shadow-sm",
-    ghost: "bg-white text-ink ring-1 ring-slate-200 hover:bg-slate-50",
-    danger: "bg-white text-rose-600 ring-1 ring-rose-200 hover:bg-rose-50",
+    primary: "border-carbon bg-carbon text-white hover:bg-carbon-soft active:translate-y-px",
+    accent:
+      "border-carbon bg-hazard text-carbon shadow-hard-sm hover:brightness-105 active:translate-x-0.5 active:translate-y-0.5 active:shadow-none",
+    ghost: "border-carbon bg-white text-carbon hover:bg-concrete active:translate-y-px",
+    danger: "border-signal bg-white text-signal-deep hover:bg-signal/10 active:translate-y-px",
   };
   return <button className={`${base} ${variants[variant]} ${className}`} {...props} />;
 }
 
-/* Labelled form field with validation message. */
 export function Field({ label, error, children, hint }) {
   return (
     <label className="block">
-      <span className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-ink-muted">
+      <span className="mb-1.5 block font-mono text-[11px] font-semibold uppercase tracking-[0.12em] text-ink-muted">
         {label}
       </span>
       {children}
       {hint && !error && <span className="mt-1 block text-xs text-ink-muted">{hint}</span>}
-      {error && <span className="mt-1 block text-xs font-medium text-rose-600">{error}</span>}
+      {error && (
+        <span className="mt-1 block text-xs font-semibold text-signal-deep">{error}</span>
+      )}
     </label>
   );
 }
@@ -30,8 +33,8 @@ export function Field({ label, error, children, hint }) {
 export function Input({ invalid, className = "", ...props }) {
   return (
     <input
-      className={`w-full rounded-lg border bg-white px-3 py-2 text-sm text-ink placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-brand/60 ${
-        invalid ? "border-rose-300" : "border-slate-200"
+      className={`w-full rounded-md border-2 bg-white px-3 py-2 text-sm text-carbon placeholder:text-ink-muted/60 focus:outline-none focus:border-carbon focus:ring-2 focus:ring-hazard/50 ${
+        invalid ? "border-signal" : "border-paperline"
       } ${className}`}
       {...props}
     />
@@ -41,8 +44,8 @@ export function Input({ invalid, className = "", ...props }) {
 export function Select({ invalid, className = "", children, ...props }) {
   return (
     <select
-      className={`w-full rounded-lg border bg-white px-3 py-2 text-sm text-ink focus:outline-none focus:ring-2 focus:ring-brand/60 ${
-        invalid ? "border-rose-300" : "border-slate-200"
+      className={`w-full rounded-md border-2 bg-white px-3 py-2 text-sm text-carbon focus:outline-none focus:border-carbon focus:ring-2 focus:ring-hazard/50 ${
+        invalid ? "border-signal" : "border-paperline"
       } ${className}`}
       {...props}
     >
@@ -51,52 +54,57 @@ export function Select({ invalid, className = "", children, ...props }) {
   );
 }
 
-/* SKU / code chip — mono, reads like a machine label. */
+/* SKU / code chip — looks like a stamped freight label. */
 export function SkuChip({ children }) {
   return (
-    <span className="inline-flex items-center rounded-md bg-slate-100 px-2 py-0.5 font-mono text-xs font-medium tracking-tight text-ink-soft">
+    <span className="inline-flex items-center rounded-[3px] border border-carbon bg-concrete px-1.5 py-0.5 font-mono text-[11px] font-semibold uppercase tracking-tight text-carbon">
       {children}
     </span>
   );
 }
 
-/* Signature element: a stock meter encoding quantity health by color + fill. */
+/* Signature element: a mechanical, ticked stock gauge. */
 export function StockMeter({ qty, threshold = 10, max }) {
   const status = stockStatus(qty, threshold);
   const ceiling = max || Math.max(threshold * 4, qty, 1);
-  const pct = Math.min(100, Math.max(qty <= 0 ? 0 : 6, (qty / ceiling) * 100));
-  const colors = {
-    ok: "bg-emerald-500",
-    low: "bg-brand",
-    out: "bg-rose-500",
-  };
-  const labels = { ok: "In stock", low: "Low", out: "Out" };
+  const pct = Math.min(100, Math.max(qty <= 0 ? 0 : 5, (qty / ceiling) * 100));
+  const fill = { ok: "bg-go", low: "bg-hazard", out: "bg-signal" }[status];
+  const text = {
+    ok: "text-go-deep",
+    low: "text-hazard-deep",
+    out: "text-signal-deep",
+  }[status];
+  const labels = { ok: "IN STOCK", low: "LOW", out: "OUT" };
   return (
     <div className="flex items-center gap-2.5">
-      <div className="h-1.5 w-24 overflow-hidden rounded-full bg-slate-200">
-        <div className={`h-full rounded-full ${colors[status]}`} style={{ width: `${pct}%` }} />
+      <div className="relative h-3 w-28 overflow-hidden rounded-[3px] border-2 border-carbon bg-white">
+        <div className={`h-full ${fill}`} style={{ width: `${pct}%` }} />
+        {/* tick marks overlaid to read like a gauge */}
+        <div
+          className="pointer-events-none absolute inset-0"
+          style={{
+            backgroundImage:
+              "repeating-linear-gradient(90deg, transparent 0, transparent 9px, rgba(23,24,27,0.45) 9px, rgba(23,24,27,0.45) 10px)",
+          }}
+        />
       </div>
-      <span className="nums font-mono text-xs font-semibold text-ink">{qty}</span>
-      <span
-        className={`text-[11px] font-medium ${
-          status === "ok" ? "text-emerald-600" : status === "low" ? "text-brand-deep" : "text-rose-600"
-        }`}
-      >
-        {labels[status]}
-      </span>
+      <span className="nums w-8 font-mono text-sm font-bold text-carbon">{qty}</span>
+      <span className={`font-mono text-[10px] font-bold tracking-wide ${text}`}>{labels[status]}</span>
     </div>
   );
 }
 
-export function Badge({ tone = "slate", children }) {
+export function Badge({ tone = "carbon", children }) {
   const tones = {
-    slate: "bg-slate-100 text-ink-soft",
-    emerald: "bg-emerald-50 text-emerald-700 ring-1 ring-emerald-200",
-    amber: "bg-brand-soft text-brand-deep ring-1 ring-amber-200",
-    rose: "bg-rose-50 text-rose-700 ring-1 ring-rose-200",
+    carbon: "border-carbon bg-white text-carbon",
+    go: "border-go bg-go/10 text-go-deep",
+    hazard: "border-carbon bg-hazard text-carbon",
+    signal: "border-signal bg-signal/10 text-signal-deep",
   };
   return (
-    <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold ${tones[tone]}`}>
+    <span
+      className={`inline-flex items-center rounded-[3px] border px-2 py-0.5 font-mono text-[11px] font-bold uppercase tracking-wide ${tones[tone]}`}
+    >
       {children}
     </span>
   );
@@ -104,17 +112,17 @@ export function Badge({ tone = "slate", children }) {
 
 export function Spinner({ label = "Loading" }) {
   return (
-    <div className="flex items-center justify-center gap-3 py-16 text-ink-muted">
-      <span className="h-5 w-5 animate-spin rounded-full border-2 border-slate-300 border-t-ink" />
-      <span className="text-sm">{label}…</span>
+    <div className="flex items-center justify-center gap-3 py-16 font-mono text-sm uppercase tracking-wide text-ink-muted">
+      <span className="h-5 w-5 animate-spin rounded-full border-2 border-paperline border-t-carbon" />
+      <span>{label}…</span>
     </div>
   );
 }
 
 export function EmptyState({ title, hint, action }) {
   return (
-    <div className="flex flex-col items-center justify-center gap-2 rounded-xl border border-dashed border-slate-300 bg-white/60 py-16 text-center">
-      <p className="font-display text-lg font-semibold text-ink">{title}</p>
+    <div className="flex flex-col items-center justify-center gap-2 rounded-md border-2 border-dashed border-paperline bg-white/50 py-16 text-center">
+      <p className="signage text-lg">{title}</p>
       {hint && <p className="max-w-sm text-sm text-ink-muted">{hint}</p>}
       {action && <div className="mt-3">{action}</div>}
     </div>
@@ -123,12 +131,14 @@ export function EmptyState({ title, hint, action }) {
 
 export function ErrorState({ message, onRetry }) {
   return (
-    <div className="rounded-xl border border-rose-200 bg-rose-50 p-6 text-center">
-      <p className="font-semibold text-rose-700">Couldn't load this data</p>
-      <p className="mt-1 text-sm text-rose-600">{message}</p>
+    <div className="rounded-md border-2 border-signal bg-signal/5 p-6 text-center">
+      <p className="font-display font-bold uppercase tracking-wide text-signal-deep">
+        Couldn't load this data
+      </p>
+      <p className="mt-1 text-sm text-signal-deep/90">{message}</p>
       {onRetry && (
         <Button variant="ghost" className="mt-4" onClick={onRetry}>
-          Try again
+          Retry
         </Button>
       )}
     </div>

@@ -60,26 +60,26 @@ export default function Products() {
           }
         />
       ) : (
-        <div className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-card">
+        <div className="overflow-hidden border-2 border-carbon bg-white">
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b border-slate-100 text-left font-mono text-[11px] uppercase tracking-wider text-ink-muted">
-                  <th className="px-5 py-3 font-medium">Product</th>
-                  <th className="px-5 py-3 font-medium">SKU</th>
-                  <th className="px-5 py-3 font-medium">Price</th>
-                  <th className="px-5 py-3 font-medium">Stock</th>
-                  <th className="px-5 py-3 text-right font-medium">Actions</th>
+                <tr className="border-b-2 border-carbon bg-carbon text-left font-mono text-[11px] uppercase tracking-wider text-concrete/70">
+                  <th className="px-5 py-3 font-semibold">Product</th>
+                  <th className="px-5 py-3 font-semibold">SKU</th>
+                  <th className="px-5 py-3 font-semibold">Price</th>
+                  <th className="px-5 py-3 font-semibold">Stock</th>
+                  <th className="px-5 py-3 text-right font-semibold">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100">
+              <tbody className="divide-y divide-paperline">
                 {products.map((p) => (
-                  <tr key={p.id} className="transition hover:bg-slate-50/70">
-                    <td className="px-5 py-3.5 font-medium text-ink">{p.name}</td>
+                  <tr key={p.id} className="transition hover:bg-concrete/40">
+                    <td className="px-5 py-3.5 font-semibold text-carbon">{p.name}</td>
                     <td className="px-5 py-3.5">
                       <SkuChip>{p.sku}</SkuChip>
                     </td>
-                    <td className="nums px-5 py-3.5 font-mono text-ink-soft">{currency(p.price)}</td>
+                    <td className="nums px-5 py-3.5 font-mono font-medium text-carbon">{currency(p.price)}</td>
                     <td className="px-5 py-3.5">
                       <StockMeter qty={p.quantity_in_stock} />
                     </td>

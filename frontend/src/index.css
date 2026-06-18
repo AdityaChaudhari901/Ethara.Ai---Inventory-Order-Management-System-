@@ -7,11 +7,47 @@
     -webkit-font-smoothing: antialiased;
   }
   body {
-    @apply bg-paper text-ink font-sans;
+    @apply bg-concrete text-carbon font-sans;
+    /* faint engineering grid on the concrete background */
+    background-image:
+      linear-gradient(rgba(23, 24, 27, 0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(23, 24, 27, 0.035) 1px, transparent 1px);
+    background-size: 28px 28px;
   }
-  /* Tabular figures everywhere numbers are compared (tables, stats). */
+  ::selection {
+    background: #ffc400;
+    color: #17181b;
+  }
   .nums {
     font-variant-numeric: tabular-nums;
+  }
+}
+
+@layer components {
+  /* Hazard stripe — the signature motif (warehouse safety tape). */
+  .hazard-stripe {
+    background-image: repeating-linear-gradient(
+      -45deg,
+      #ffc400 0,
+      #ffc400 9px,
+      #17181b 9px,
+      #17181b 18px
+    );
+  }
+
+  /* Industrial flat panel: hard border, no pillowy shadow. */
+  .panel {
+    @apply border-2 border-carbon bg-white rounded-md;
+  }
+
+  /* Mono eyebrow label used above section/page titles. */
+  .eyebrow {
+    @apply font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-hazard-deep;
+  }
+
+  /* Heavy condensed-feel signage title. */
+  .signage {
+    @apply font-display font-extrabold uppercase tracking-tight text-carbon;
   }
 }
 

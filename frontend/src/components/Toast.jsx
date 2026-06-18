@@ -26,28 +26,27 @@ export function ToastProvider({ children }) {
   return (
     <ToastContext.Provider value={toast}>
       {children}
-      <div className="pointer-events-none fixed bottom-5 right-5 z-50 flex w-full max-w-sm flex-col gap-2">
+      <div className="pointer-events-none fixed bottom-5 right-5 z-50 flex w-full max-w-sm flex-col gap-2.5">
         {toasts.map((t) => (
           <div
             key={t.id}
             role="status"
-            className={`pointer-events-auto flex animate-slide-up items-start gap-3 rounded-xl border bg-white p-3.5 shadow-pop ${
-              t.tone === "error" ? "border-rose-200" : "border-emerald-200"
-            }`}
+            className="pointer-events-auto flex animate-slide-up items-stretch gap-0 border-2 border-carbon bg-white shadow-hard-sm"
           >
-            <span
-              className={`mt-0.5 h-2.5 w-2.5 flex-shrink-0 rounded-full ${
-                t.tone === "error" ? "bg-rose-500" : "bg-emerald-500"
-              }`}
-            />
-            <p className="flex-1 text-sm text-ink">{t.message}</p>
-            <button
-              onClick={() => dismiss(t.id)}
-              className="text-ink-muted hover:text-ink"
-              aria-label="Dismiss"
-            >
-              ✕
-            </button>
+            <span className={`w-1.5 ${t.tone === "error" ? "bg-signal" : "bg-go"}`} />
+            <div className="flex flex-1 items-start gap-3 px-3.5 py-3">
+              <span className="font-mono text-[10px] font-bold uppercase tracking-wide text-ink-muted">
+                {t.tone === "error" ? "ERR" : "OK"}
+              </span>
+              <p className="flex-1 text-sm text-carbon">{t.message}</p>
+              <button
+                onClick={() => dismiss(t.id)}
+                className="text-ink-muted hover:text-carbon"
+                aria-label="Dismiss"
+              >
+                ✕
+              </button>
+            </div>
           </div>
         ))}
       </div>

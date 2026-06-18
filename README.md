@@ -66,9 +66,12 @@ for container, data-model (ER), order-flow sequence, and deployment diagrams.
 |---|---|
 | ![Create order](docs/screenshots/order-create.png) | ![Order detail](docs/screenshots/order-detail.png) |
 
-The UI is a "warehouse operations console": an ink/amber identity with a
-signature **stock-meter** that color-codes inventory health (green = in stock,
-amber = low, red = out), mono SKU chips, and a fully responsive layout.
+The UI follows a deliberate **"Freight Terminal"** design language — industrial
+signage typography (Archivo), a **hazard-stripe** signature motif, flat
+hard-edged panels, freight-label SKU chips, and a mechanical **ticked stock
+gauge** that color-codes inventory health (green = in stock, amber = low,
+red = out). Type pairing: Archivo (display) + Inter (body) + IBM Plex Mono
+(data). Fully responsive desktop → mobile.
 
 ---
 
