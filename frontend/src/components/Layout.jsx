@@ -23,7 +23,7 @@ export function Layout() {
 
       {/* Sidebar */}
       <aside
-        className={`fixed inset-y-0 left-0 z-40 flex w-64 flex-col bg-carbon text-white transition-transform lg:static lg:m-3 lg:h-[calc(100vh-1.5rem)] lg:rounded-3xl lg:translate-x-0 ${
+        className={`fixed inset-y-0 left-0 z-40 flex w-64 flex-col bg-carbon text-white transition-transform lg:sticky lg:top-3 lg:m-3 lg:h-[calc(100vh-1.5rem)] lg:self-start lg:rounded-3xl lg:translate-x-0 ${
           open ? "translate-x-0" : "-translate-x-full"
         }`}
       >
