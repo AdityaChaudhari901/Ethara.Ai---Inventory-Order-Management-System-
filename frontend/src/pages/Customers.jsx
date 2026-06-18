@@ -122,6 +122,7 @@ function CustomerForm({ onClose, onSaved }) {
     if (!form.full_name.trim()) e.full_name = "Full name is required";
     if (!form.email.trim()) e.email = "Email is required";
     else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim())) e.email = "Enter a valid email address";
+    if (form.phone.length !== 10) e.phone = "Enter a 10-digit phone number";
     setErrors(e);
     return Object.keys(e).length === 0;
   }
@@ -134,7 +135,7 @@ function CustomerForm({ onClose, onSaved }) {
       await CustomersApi.create({
         full_name: form.full_name.trim(),
         email: form.email.trim(),
-        phone: form.phone.trim() || null,
+        phone: form.phone,
       });
       toast.success(`Added ${form.full_name.trim()}`);
       onSaved();
@@ -169,8 +170,19 @@ function CustomerForm({ onClose, onSaved }) {
         <Field label="Email" error={errors.email} hint="Must be unique">
           <Input type="email" value={form.email} onChange={set("email")} invalid={!!errors.email} placeholder="maria@example.com" />
         </Field>
-        <Field label="Phone">
-          <Input value={form.phone} onChange={set("phone")} placeholder="+1 555 0100" className="font-mono" />
+        <Field label="Phone" error={errors.phone} hint="10-digit mobile number">
+          <div className="flex items-stretch">
+            <span className="inline-flex items-center rounded-l-xl border border-r-0 border-black/10 bg-black/[0.03] px-3 font-mono text-sm text-ink-muted">
+              +91
+            </span>
+            <Input
+              value={form.phone}
+              onChange={(e) => setForm((f) => ({ ...f, phone: e.target.value.replace(/\D/g, "").slice(0, 10) }))}
+              inputMode="numeric"
+              placeholder="9876543210"
+              className="rounded-l-none font-mono"
+            />
+          </div>
         </Field>
       </form>
     </Modal>

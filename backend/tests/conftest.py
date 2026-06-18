@@ -62,7 +62,7 @@ def make_product(client, sku="SKU-1", name="Widget", price=10.0, qty=100):
     return resp.json()
 
 
-def make_customer(client, email="a@example.com", name="Alice", phone="123"):
+def make_customer(client, email="a@example.com", name="Alice", phone="9876543210"):
     resp = client.post(
         "/customers",
         json={"full_name": name, "email": email, "phone": phone},
