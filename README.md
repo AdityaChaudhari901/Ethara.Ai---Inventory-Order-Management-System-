@@ -144,3 +144,4 @@ environment-variable matrix.
 All configuration is via environment variables (see `.env.example`,
 `backend/` reads them through `app/core/config.py`, `frontend/.env.example`).
 No credentials are hardcoded anywhere in the codebase.
+# Ethara.Ai---Inventory-Order-Management-System-
